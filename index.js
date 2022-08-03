@@ -20,9 +20,14 @@ const io = new Server(server, {
 });
 
 // routees
+// default route
 app.get("/", (req, res) => {
 	res.send("Hello World");
 });
+
+// auth route
+const authRoutes = require("./routes/auth/authRoutes");
+app.use("/api/auth", authRoutes);
 
 // Listening
 const port = 8080 || process.env.PORT;
