@@ -18,9 +18,28 @@ app.use(express.json());
 
 // create socket server
 const io = new Server(server, {
+	pingTimeout: 60000,
 	cors: {
 		origin: "*",
 	},
+});
+
+io.engine.generateId = function (req) {
+	// generate a new custom id here
+	return 34;
+};
+
+// socket connection
+io.on("connection", (socket) => {
+	// setup personal room
+	socket.on("setup", async (data) => {
+		await socket.join(data.userId);
+		console.log(`Setup complete for this userid: ${data.userId}`);
+	});
+
+	socket.on("disconnect", () => {
+		console.log(`Disconneted: ${socket.id}`);
+	});
 });
 
 // routees
