@@ -9,12 +9,12 @@ const connectDb = require("./utils/connectDb");
 const app = express();
 const server = http.createServer(app);
 
+// connect database
+connectDb();
+
 // middleware
 app.use(cors());
 app.use(express.json());
-
-// connect database
-connectDb();
 
 // create socket server
 const io = new Server(server, {

@@ -1,9 +1,10 @@
 const express = require("express");
 const User = require("../../models/userModel");
 const router = express.Router();
+const { hash } = require("bcryptjs");
 
 // create account api
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
 	// destructure body
 	const { firstName, lastName, email, password } = req.body;
 
@@ -13,28 +14,42 @@ router.post("/", async (req, res) => {
 		res.end();
 	}
 
+	// hash password
+	const hasedPassword = await hash(password, 6);
+
 	try {
 		// structure user request
 		const userStructure = new User({
 			firstName,
 			lastName,
 			email,
-			password,
+			password: hasedPassword,
 		});
 
 		// save user
 		const result = await userStructure.save();
 
-		// send response to client
-		res.status(200).json({
+		// send response to client when successfull
+		res.status(201).json({
 			success: result,
 			message: "User has been created.",
 		});
 		res.end();
 	} catch (error) {
-		// if err
-		res.status(400).json({ error, message: "Creating user unsucessfull." });
-		res.end();
+		// if deplicate error
+		if (error.keyValue.email) {
+			res.status(406).json({
+				error,
+				message: "Email is already in use.",
+			});
+			res.end();
+			return;
+		} else {
+			// if random error
+			res.status(400).json({ error, message: "Something went wrong." });
+			res.end();
+			return;
+		}
 	}
 });
 
