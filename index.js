@@ -24,11 +24,6 @@ const io = new Server(server, {
 	},
 });
 
-io.engine.generateId = function (req) {
-	// generate a new custom id here
-	return 34;
-};
-
 // socket connection
 io.on("connection", (socket) => {
 	// setup personal room
@@ -50,7 +45,11 @@ app.get("/", (req, res) => {
 
 // auth route
 const authRoutes = require("./routes/auth/authRoutes");
-app.use("/api/auth", authRoutes);
+app.use("/api/v1/auth", authRoutes);
+
+// chat route
+const chatRoutes = require("./routes/chat/allChatRouter");
+app.use("/api/v1/chat", chatRoutes);
 
 // Listening
 const port = 8080 || process.env.PORT;

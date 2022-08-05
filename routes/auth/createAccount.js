@@ -10,7 +10,7 @@ router.post("/", async (req, res, next) => {
 
 	// error check if body is emtpy
 	if (!firstName || !lastName || !email || !password) {
-		res.status(422).json({ error: true, message: "Body is empty." });
+		res.status(406).json({ error: true, message: "Body is empty." });
 		res.end();
 	}
 
