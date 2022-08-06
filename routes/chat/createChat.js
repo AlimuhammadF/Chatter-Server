@@ -7,6 +7,13 @@ router.post("/", async (req, res) => {
 	// destructure bodu
 	const { receiverId, senderId } = req.body;
 
+	// throw if no id found
+	if (!receiverId || !senderId) {
+		res.status(406).json({ error: true, message: "Body not found." });
+		res.end();
+		return;
+	}
+
 	// check if personal chat exist with this user id
 	try {
 		const isChatExist = await Chat.findOne({

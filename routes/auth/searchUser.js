@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
 	if (!search) {
 		res.status(406).json({ error: true, message: "Body is empty" });
 		res.end();
+		return;
 	}
 
 	// search user
@@ -45,6 +46,7 @@ router.get("/", async (req, res) => {
 		});
 
 		res.end();
+		return;
 	} catch (error) {
 		res.status(400).json({
 			error,

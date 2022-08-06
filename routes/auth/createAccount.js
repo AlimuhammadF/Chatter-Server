@@ -12,6 +12,7 @@ router.post("/", async (req, res, next) => {
 	if (!firstName || !lastName || !email || !password) {
 		res.status(406).json({ error: true, message: "Body is empty." });
 		res.end();
+		return;
 	}
 
 	// hash password
@@ -35,6 +36,7 @@ router.post("/", async (req, res, next) => {
 			message: "User has been created.",
 		});
 		res.end();
+		return;
 	} catch (error) {
 		// if deplicate error
 		if (error.keyValue.email) {

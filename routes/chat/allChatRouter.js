@@ -6,5 +6,17 @@ const router = express.Router();
 const createChatApi = require("./createChat");
 router.use("/createChat", createChatApi);
 
+// fetch chats api
+const fetchChatApi = require("./fetchChats");
+router.use("/fetchChats", fetchChatApi);
+
+// send message api
+const sendMessageApi = require("./sendMessage");
+router.use("/sendMessage", sendMessageApi);
+
+// fetch all messages
+const fetchMessageApi = require("./fetchMessages");
+router.use("/fetchMessages", fetchMessageApi);
+
 // export
 module.exports = router;
