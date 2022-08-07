@@ -80,5 +80,5 @@ const chatRoutes = require("./routes/chat/allChatRouter");
 app.use("/api/v1/chat", chatRoutes);
 
 // Listening
-const port = 8080 || process.env.PORT;
+const port = process.env.PORT || 8080;
 server.listen(port, () => console.log(`Listening port:${port}`));
