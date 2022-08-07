@@ -54,6 +54,12 @@ io.on("connection", (socket) => {
 		socket.to(data.chatId).emit("seen-message-rec", data);
 	});
 
+	// fetch chat indication
+	socket.on("fetch-chat-indication", (data) => {
+		console.log(data);
+		socket.to(data.roomId).emit("fetch-chat-indication-rec", data);
+	});
+
 	socket.on("disconnect", () => {
 		console.log(`Disconneted: ${socket.id}`);
 	});
