@@ -32,6 +32,28 @@ io.on("connection", (socket) => {
 		console.log(`Setup complete for this userid: ${data.userId}`);
 	});
 
+	// join chat
+	socket.on("join-room", async (room) => {
+		await socket.join(room);
+		console.log(`Joined Chat ${room}`);
+	});
+
+	// leave room
+	socket.on("leave-room", async (room) => {
+		await socket.leave(room);
+		console.log(`Room Left: ${room}`);
+	});
+
+	// send message
+	socket.on("send-message", (data) => {
+		socket.to(data.chatId).emit("rec-message", data);
+	});
+
+	// seen message
+	socket.on("seen-message-send", (data) => {
+		socket.to(data.chatId).emit("seen-message-rec", data);
+	});
+
 	socket.on("disconnect", () => {
 		console.log(`Disconneted: ${socket.id}`);
 	});

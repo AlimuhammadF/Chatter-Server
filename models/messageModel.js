@@ -7,7 +7,8 @@ const messageSchema = mongoose.Schema(
 		chatId: { type: mongoose.Schema.Types.ObjectId, ref: "Chat" },
 		seen: { type: Boolean, default: false },
 	},
-	{ timestamps: true }
+	{ timestamps: true },
+	{ _id: false }
 );
 
 const Message = mongoose.model("Message", messageSchema);

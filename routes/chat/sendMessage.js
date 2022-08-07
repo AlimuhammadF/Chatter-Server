@@ -1,4 +1,5 @@
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 const Chat = require("../../models/chatModel");
 const Message = require("../../models/messageModel");
 const router = express.Router();
@@ -16,11 +17,12 @@ router.post("/", async (req, res) => {
 
 	// create message document
 	try {
-		const sendMessage = await Message.create({
+		const handlesendMessage = new Message({
 			chatId,
 			message,
 			sender,
 		});
+		const sendMessage = await handlesendMessage.save();
 
 		// update latest Message on chat id
 		await Chat.updateOne(
