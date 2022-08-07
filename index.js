@@ -56,8 +56,12 @@ io.on("connection", (socket) => {
 
 	// fetch chat indication
 	socket.on("fetch-chat-indication", (data) => {
-		console.log(data);
 		socket.to(data.roomId).emit("fetch-chat-indication-rec", data);
+	});
+
+	// typing animation
+	socket.on("typing-send", (data) => {
+		socket.to(data.chatId).emit("typing-rec", data);
 	});
 
 	socket.on("disconnect", () => {
