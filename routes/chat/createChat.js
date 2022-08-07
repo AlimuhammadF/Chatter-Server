@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 		res.status(201).json({
 			success: true,
 			message: "Chat has been created.",
-			createChat,
+			result: createChat,
 		});
 
 		res.end();

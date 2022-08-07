@@ -18,5 +18,9 @@ router.use("/sendMessage", sendMessageApi);
 const fetchMessageApi = require("./fetchMessages");
 router.use("/fetchMessages", fetchMessageApi);
 
+// send message api
+const seenMessageApi = require("./seenMessage");
+router.use("/seenMessage", seenMessageApi);
+
 // export
 module.exports = router;
